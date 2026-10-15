@@ -1,0 +1,7 @@
+label,subject,body,sender,recipient
+ham,Project meeting,Please review the agenda before tomorrow's meeting.,colleague@example.com,team@example.com
+spam,You won a prize,Claim your FREE cash reward now by clicking this link!,offers@example.net,user@example.com
+ham,Lunch plans,Are you free for lunch on Friday?,friend@example.com,user@example.com
+spam,URGENT account alert,Verify your account immediately to avoid suspension.,security@example.net,user@example.com
+ham,Invoice attached,The invoice for September is attached. Thank you.,billing@example.com,user@example.com
+spam,Make money fast,Guaranteed income from home. Buy now!,promo@example.net,user@example.com
