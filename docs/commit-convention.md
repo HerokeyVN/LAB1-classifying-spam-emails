@@ -77,7 +77,7 @@ Use the most specific scope that describes the main changed area. If a change sp
 - `features` - Feature extraction, TF-IDF vectorization, n-grams, stop-words filtering, vocabulary configuration
 - `cli` - CLI entry points, argument parsing (`train`, `evaluate`, `predict`), user prompts and console output
 - `eval` - Metrics computation (`accuracy`, `spam_precision`, `spam_recall`, `spam_f1`), classification reports, confusion matrix
-- `data` - Raw email datasets (`data/raw/emails.csv`), sample additions, data contracts, label mappings
+- `data` - Datasets, sample additions (`data/samples/emails.csv`), raw data contracts, label mappings
 - `artifacts` - Model serialization (`save_model`, `load_model`), saved `.joblib` files, `metrics.json` outputs
 - `tests` - Unit tests, integration tests, mock datasets, test fixtures
 - `deps` - Dependency management, `pyproject.toml`, packaging configuration
@@ -220,12 +220,75 @@ AI agents cooperating in this workspace must follow these rules:
 
 ---
 
-## Optional Validation
+## Automated CI Validation & Enforcement
 
-If commit linting is added later, enforce:
-- `type-case`: uppercase
-- `type-enum`: `FEAT`, `FIX`, `REFACT`, `CHORE`, `DOCS`, `STYLE`, `TEST`, `PERF`, `SEC`, `DATA`, `OPS`, `REMOVE`
-- `scope-case`: lowercase
-- `subject-case`: sentence-case is not required; keep summaries concise and imperative
+An automated GitHub Actions workflow (`.github/workflows/commit-validation.yml`) enforces this convention on all Pull Requests targeting `main`.
 
-*Note: Do not add commitlint config in this task unless explicitly requested. Only document the rules.*
+### Workflow Triggers & Behavior
+- **Trigger Events:** Runs on PR `opened`, `reopened`, `synchronize` (new commits pushed), and `edited` (PR title changed).
+- **Target Branch:** Pull Requests targeting `main`.
+- **Validation Scope:**
+  - Validates **every individual commit** in the PR by retrieving the commit history via GitHub REST API with pagination (supporting PRs with >100 commits).
+  - Validates the **PR title** as well. This ensures that GitHub's "Squash and Merge" feature—which defaults to using the PR title as the squashed commit summary on `main`—does not produce a non-compliant commit.
+- **Permissions:** Minimal read-only permissions (`contents: read`, `pull-requests: read`).
+
+### Failure Reporting
+When validation fails, GitHub Actions provides clear diagnostics in three places:
+1. **Workflow Console:** Shows the short commit SHA, the commit message, the specific rule(s) violated, and an expected valid suggestion.
+2. **Step Summary (`$GITHUB_STEP_SUMMARY`):** Renders a structured Markdown table of all invalid commits and PR title violations with recommended fixes.
+3. **Workflow Annotations:** Emits GitHub Actions inline error annotations targeting the invalid commits.
+
+### How to Fix Invalid Commits Locally
+
+If the workflow fails, developers can fix the commit history before merging:
+
+1. **Fixing the most recent commit:**
+   ```bash
+   git commit --amend -m "TYPE(scope): summary"
+   git push --force-with-lease
+   ```
+
+2. **Fixing older commits in a branch:**
+   ```bash
+   git rebase -i origin/main
+   # In the editor, change 'pick' to 'reword' (or 'r') for each invalid commit.
+   # Save and edit each commit message when prompted.
+   git push --force-with-lease
+   ```
+
+3. **Fixing an invalid PR title:**
+   - In GitHub's web interface, click **Edit** next to the PR title, change it to follow `TYPE(scope): summary`, and click **Save**.
+   - Or using GitHub CLI:
+     ```bash
+     gh pr edit <PR_NUMBER> --title "TYPE(scope): summary"
+     ```
+
+4. **Validating locally before pushing:**
+   ```bash
+   .venv/bin/python scripts/validate_commits.py --message "FEAT(model): add LinearSVC classifier"
+   ```
+
+### GitHub Branch Protection Configuration
+
+To require that all PRs pass commit message and title validation before merging into `main`:
+
+1. Navigate to your GitHub repository: **Settings** -> **Branches**.
+2. Under **Branch protection rules**, click **Add branch ruleset** or **Add rule** (Branch name pattern: `main`).
+3. Enable **Require status checks to pass before merging**.
+4. In the search box under "Status checks that're required", search for and select:
+   - `Validate PR Commits & Title` (matches the job name in `.github/workflows/commit-validation.yml`).
+5. (Recommended) Enable **Require branches to be up to date before merging**.
+6. (Recommended) Enable **Require linear history** and **Do not allow bypassing the above settings**.
+7. Click **Save changes** / **Create**.
+
+### Linguistic Limitations of Automated Checks
+
+The automated validator enforces deterministic syntactic rules:
+- Format structure `TYPE(scope): summary` and `TYPE(scope)!: summary`.
+- Uppercase allowed type check and lowercase scope syntax.
+- Non-empty summary, presence of colon and space, and absence of trailing periods.
+- Rejection of common non-imperative verb forms (past tense `-ed`, gerund `-ing`, 3rd-person singular `-s`) using an extensive verb lookup table.
+- Rejection of explicitly prohibited vague summaries (`fix bug`, `update code`, `wip`, etc.).
+
+**Limitations:**
+Automated regex and dictionary checks cannot evaluate semantic appropriateness, English grammar outside dictionary verbs, or subjective descriptive accuracy. Code reviewers and team members must verify that the summary accurately reflects the technical change during PR review.

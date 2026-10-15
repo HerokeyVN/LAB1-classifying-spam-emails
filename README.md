@@ -8,8 +8,8 @@ Skeleton cho bài tập phân loại email **spam / ham (not spam)** bằng scik
 python -m venv .venv
 source .venv/bin/activate       # Windows: .venv\Scripts\activate
 pip install -e ".[dev]"
-spam-classifier train --data data/raw/emails.csv --model logistic_regression
-spam-classifier evaluate --data data/raw/emails.csv --model-path artifacts/model.joblib
+spam-classifier train --data data/samples/emails.csv --model logistic_regression
+spam-classifier evaluate --data data/samples/emails.csv --model-path artifacts/model.joblib
 spam-classifier predict --model-path artifacts/model.joblib --text "You won a free prize! Click now"
 ```
 
@@ -20,16 +20,21 @@ CSV bắt buộc có cột `label` và ít nhất một trong `text`, `subject`,
 `sender` và `recipient` là tùy chọn. Khi có nhiều trường, pipeline ghép chúng thành một
 văn bản trước khi vector hóa TF-IDF.
 
-Ví dụ ở [data/raw/emails.csv](data/raw/emails.csv). Không commit email riêng tư hoặc dữ liệu
+Ví dụ ở [data/samples/emails.csv](data/samples/emails.csv). Không commit email riêng tư hoặc dữ liệu
 nhạy cảm vào repository.
 
 ## Layout
 
 ```text
-data/raw/              # input CSV (gitignore các file lớn, trừ sample)
+data/
+├── raw/               # Real/raw datasets (gitignored)
+├── samples/           # Safe sample datasets (tracked)
+│   └── emails.csv
+└── processed/         # Generated data (gitignored)
 src/spam_classifier/   # preprocessing, model pipeline, CLI
 artifacts/             # model và metric sinh ra khi chạy
 tests/                 # unit tests
+docs/                  # commit convention và hướng dẫn
 ```
 
 ## Models
