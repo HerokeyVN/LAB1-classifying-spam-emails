@@ -1,1 +1,43 @@
-# CLASSIFYING-SPAM-EMAILS
+# Spam Email Classifier
+
+Skeleton cho bài tập phân loại email **spam / ham (not spam)** bằng scikit-learn.
+
+## Quick start
+
+```bash
+python -m venv .venv
+source .venv/bin/activate       # Windows: .venv\Scripts\activate
+pip install -e ".[dev]"
+spam-classifier train --data data/raw/emails.csv --model logistic_regression
+spam-classifier evaluate --data data/raw/emails.csv --model-path artifacts/model.joblib
+spam-classifier predict --model-path artifacts/model.joblib --text "You won a free prize! Click now"
+```
+
+## Dataset contract
+
+CSV bắt buộc có cột `label` và ít nhất một trong `text`, `subject`, `body`.
+`label` hỗ trợ `spam` / `ham`, `1` / `0` (không phân biệt hoa thường). Các trường
+`sender` và `recipient` là tùy chọn. Khi có nhiều trường, pipeline ghép chúng thành một
+văn bản trước khi vector hóa TF-IDF.
+
+Ví dụ ở [data/raw/emails.csv](data/raw/emails.csv). Không commit email riêng tư hoặc dữ liệu
+nhạy cảm vào repository.
+
+## Layout
+
+```text
+data/raw/              # input CSV (gitignore các file lớn, trừ sample)
+src/spam_classifier/   # preprocessing, model pipeline, CLI
+artifacts/             # model và metric sinh ra khi chạy
+tests/                 # unit tests
+```
+
+## Models
+
+- `logistic_regression` (mặc định): baseline cân bằng tốt.
+- `linear_svm`: hợp với sparse, high-dimensional TF-IDF.
+- `naive_bayes`: baseline nhanh.
+
+Lệnh `train` tạo `artifacts/model.joblib` và `artifacts/metrics.json`; `evaluate`
+in classification report trên một split hold-out tái lập được. Với dữ liệu nhỏ, nên
+so sánh 3 model và ưu tiên F1 của lớp spam thay vì chỉ nhìn accuracy.
