@@ -46,3 +46,9 @@ docs/                  # commit convention và hướng dẫn
 Lệnh `train` tạo `artifacts/model.joblib` và `artifacts/metrics.json`; `evaluate`
 in classification report trên một split hold-out tái lập được. Với dữ liệu nhỏ, nên
 so sánh 3 model và ưu tiên F1 của lớp spam thay vì chỉ nhìn accuracy.
+
+## Bài thực hành Lab 1 của nhóm 5
+
+Hướng dẫn notebook Naive Bayes và KNN tự viết: [LAB1.md](LAB1.md).
+Hai notebook dùng cùng dữ liệu email Enron1, cách làm sạch, chia train/test và TF-IDF.
+CSV dữ liệu gốc cần tải riêng theo hướng dẫn; kết quả đã lưu nằm trong `outputs/`.
