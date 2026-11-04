@@ -52,3 +52,5 @@ so sánh 3 model và ưu tiên F1 của lớp spam thay vì chỉ nhìn accuracy
 Hướng dẫn notebook Naive Bayes và KNN tự viết: [LAB1.md](LAB1.md).
 Hai notebook dùng cùng dữ liệu email Enron1, cách làm sạch, chia train/test và TF-IDF.
 CSV dữ liệu gốc cần tải riêng theo hướng dẫn; kết quả đã lưu nằm trong `outputs/`.
+
+Quy trình notebook của nhóm: [KNN và Naive Bayes tự viết](LAB_WORKFLOW.md).

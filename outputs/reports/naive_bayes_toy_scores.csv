@@ -1,0 +1,3 @@
+class,log_score,normalized,predicted
+ham,-0.916290731874155,0.8,True
+spam,-2.3025850929940455,0.20000000000000004,False

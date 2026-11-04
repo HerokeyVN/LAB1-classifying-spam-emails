@@ -1,0 +1,5 @@
+,word_count,word_count,word_count,word_count,word_count,word_count,word_count,word_count,char_count,char_count,char_count,char_count,char_count,char_count,char_count,char_count
+,count,mean,std,min,25%,50%,75%,max,count,mean,std,min,25%,50%,75%,max
+label,,,,,,,,,,,,,,,,
+ham,3427.0,159.4896410854975,212.68812309679768,2.0,41.0,87.0,202.0,3568.0,3427.0,838.7843594981033,1153.9029193810043,15.0,208.5,449.0,1047.5,21271.0
+spam,1461.0,190.1690622861054,274.01537708278113,1.0,44.0,91.0,199.0,2602.0,1461.0,1127.1964407939768,1690.4381167179936,7.0,267.0,511.0,1188.0,21489.0

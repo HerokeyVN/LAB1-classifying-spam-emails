@@ -1,0 +1,5 @@
+class,word,total,probability,prior
+ham,word_1,3.0,0.8,0.5
+ham,word_2,0.0,0.2,0.5
+spam,word_1,0.0,0.2,0.5
+spam,word_2,3.0,0.8,0.5
