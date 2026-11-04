@@ -1,0 +1,5 @@
+model,text,prediction,spam_score
+knn,Subject: Team meeting tomorrow. Please review the report.,ham,0.0
+knn,Subject: Free prize. Claim your money now.,spam,1.0
+naive_bayes,Subject: Team meeting tomorrow. Please review the report.,ham,0.10726743624629115
+naive_bayes,Subject: Free prize. Claim your money now.,spam,0.9280780760886642

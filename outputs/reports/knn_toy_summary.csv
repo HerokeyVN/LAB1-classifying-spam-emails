@@ -1,0 +1,2 @@
+k,vote,spam_votes,spam_score,neighbors
+3,ham,1,0.3333333333333333,"0:ham, 1:ham, 2:spam"

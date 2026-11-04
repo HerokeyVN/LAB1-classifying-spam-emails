@@ -1,0 +1,20 @@
+{
+  "source": "Enron1 / Kaggle venky73/spam-mails-dataset",
+  "rows": 5171,
+  "columns": [
+    "Unnamed: 0",
+    "label",
+    "text",
+    "label_num"
+  ],
+  "missing": {
+    "Unnamed: 0": 0,
+    "label": 0,
+    "text": 0,
+    "label_num": 0
+  },
+  "labels": {
+    "ham": 3672,
+    "spam": 1499
+  }
+}
