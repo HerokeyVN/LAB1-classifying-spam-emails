@@ -1,0 +1,24 @@
+{
+  "source": "data/raw/spam_ham_dataset.csv",
+  "rows": 5171,
+  "columns": [
+    "Unnamed: 0",
+    "label",
+    "text",
+    "label_num"
+  ],
+  "missing": {
+    "Unnamed: 0": 0,
+    "label": 0,
+    "text": 0,
+    "label_num": 0
+  },
+  "labels": {
+    "ham": 3672,
+    "spam": 1499
+  },
+  "label_percentages": {
+    "ham": 71.01,
+    "spam": 28.99
+  }
+}
