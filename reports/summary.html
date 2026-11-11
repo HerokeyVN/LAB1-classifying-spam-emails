@@ -1,0 +1,42 @@
+<!doctype html><html lang="vi"><meta charset="utf-8"><title>Kết quả Lab 01</title><body><h1>Kết quả phân loại email</h1><p>Nguồn: reports/metrics.csv; đánh giá tập Test. Không huấn luyện lại khi xuất báo cáo. Train: 3949; Test: 939; nội dung sạch trùng giữa hai tập: 0. Nội dung chung được giữ ở Train, bỏ bản trùng khỏi Test.</p><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Model</th>
+      <th>Feature Type</th>
+      <th>Accuracy</th>
+      <th>Precision</th>
+      <th>Recall</th>
+      <th>F1-Score</th>
+      <th>TPR</th>
+      <th>FPR</th>
+      <th>AUC</th>
+      <th>Ghi chú / Hyperparameters</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>KNN</td>
+      <td>TF-IDF</td>
+      <td>0.9478</td>
+      <td>0.9107</td>
+      <td>0.9201</td>
+      <td>0.9154</td>
+      <td>0.9201</td>
+      <td>0.0399</td>
+      <td>0.9804</td>
+      <td>k=5</td>
+    </tr>
+    <tr>
+      <td>Naive Bayes</td>
+      <td>TF-IDF</td>
+      <td>0.9191</td>
+      <td>0.8397</td>
+      <td>0.9097</td>
+      <td>0.8733</td>
+      <td>0.9097</td>
+      <td>0.0768</td>
+      <td>0.9796</td>
+      <td>alpha=1</td>
+    </tr>
+  </tbody>
+</table><p>TPR bằng Recall; FPR là tỷ lệ Ham bị báo nhầm. AUC đánh giá xếp hạng trên các ngưỡng; cần kiểm tra dữ liệu trùng giữa Train và Test.</p><img src="../docs/images/metrics_comparison.png" alt="So sánh metrics" style="max-width:100%"><img src="../docs/images/tpr_fpr_comparison.png" alt="TPR và FPR" style="max-width:100%"><img src="../docs/images/roc_curve.png" alt="Đường ROC" style="max-width:100%"></body></html>
